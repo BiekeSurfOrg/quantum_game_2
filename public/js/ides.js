@@ -43,12 +43,25 @@ let startTools = () => {
     c = randomCell(toolsMaze);
     let Bracket = new Feature("Braket");
     Bracket.visit = () => {
-            showMessage("Braket is the AWS alternative\n"+
+            showQuestion("Braket is an alternative of a large cloud provider\n"+
             "At KBC we are following up on it\n"+
-            "But we opted not to work with this implementation");
+            "But we opted not to work with this implementation\n"+
+            "What company offers 'Braket'", ["aws", "amazon"]);
         grabTool(Bracket);
     }
     c.addFeature(Bracket);
+
+    c = randomCell(toolsMaze);
+    let qsh = new Feature("Q#");
+    qsh.visit = () => {
+            showQuestion("Q# is an alternative of a large cloud provider\n"+
+            "At KBC we are following up on it\n"+
+            "But we opted not to work with this implementation\n"+
+            "What company offers 'Q#'", ["azure", "microsoft"]);
+        grabTool(qsh);
+    }
+    c.addFeature(qsh);
+
 
     c = randomCell(toolsMaze);
     let qasm = new Feature("qasm");

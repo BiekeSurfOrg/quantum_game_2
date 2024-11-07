@@ -51,7 +51,7 @@ let startAlgos = () => {
         QPE.requirements.push(new Requirement(()=> {return hasAlgo("Interference")},
             "The Quantum Phase Estimation is based on the \n3 main concepts of Quantum Computing.\n- Superposition \n- Entanglement \n- Interference.\n\n"+
             "Research all 3"))
-        QPE.finalMessage = "test"
+        QPE.finalMessage = "Quantum Phase Estimation \nis the part of the algorithm where we get the speed advantage. \nThis part uses advanced math to estimate the \nvalue of a quantum superposition"
 
     QPE.visit = ()=> {visitalgo(QPE);}
     c.addFeature(QPE);
@@ -62,7 +62,7 @@ let startAlgos = () => {
         showQuestion("You are losing time investigating algorithms \nthat are not needed for this project! \n"+
             "Your project therefore got a 6 month delay. \n"+
             "(To simulate this, you need to find the answer to the question:\n"+
-            "What is the full name of QAOA? )", ["Quantum Approximate Optimization Algorithm"])
+            "What is the full name of QAOA? )", ["quantum approximate optimization algorithm"])
         visitalgo(QAOA);}
     c.addFeature(QAOA);
 
@@ -72,7 +72,7 @@ let startAlgos = () => {
             showQuestion("You are losing time investigating algorithms \nthat are not needed for this project! \n"+
             "Your project therefore got a 6 month delay. \n"+
             "(To simulate this, you need to find the answer to the question:\n"+
-            "give one of the three persons that created the algorithm? )", ["Harrow","Hassidim","Lloyd"])
+            "give one of the three persons that created the algorithm? )", ["harrow","hassidim","lloyd"])
             visitalgo(HLL);}
     c.addFeature(HLL);
 
@@ -85,7 +85,7 @@ let startAlgos = () => {
                                  "A quantumbit can be 0 and 1 at the same time\n"+
                                  "When measuring, one of the states will be found\nwith a certain probability"+
                                  "\nWhat standard gate is used to perform \nan equal superposition of basis states?",
-                     ["Hadamard", "H", "hadamard", "Hadamard gate", "hadamard gate"]);
+                     ["Hadamard", "h", "hadamard", "Hadamard gate", "hadamard gate"]);
         visitalgo(SuperPosition);
         }
     c.addFeature(SuperPosition);

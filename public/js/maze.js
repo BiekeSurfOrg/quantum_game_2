@@ -362,8 +362,8 @@ class Person{
             var experts = 0;
             var sponsors = 0;
             for (i = 0; i < persons.length; i++) {
-                if (persons[i].name = "Sponsor") sponsors++;
-                if (persons[i].name = "Business \nExpert") experts++;
+                if (persons[i].name === "Sponsor") sponsors++;
+                if (persons[i].name === "Business \nExpert") experts++;
             }
             if ((sponsors>0) && (experts >1)){
                 businessLogic = true;
@@ -435,9 +435,11 @@ window.addEventListener('keydown',this.check,false);
 window.addEventListener('click',this.unblock,false);
 
 function unblock(e) {
-    if (blockEvents  && (expectedAnswer === "" ||  expectedAnswer.includes(document.getElementById('input').value))){
+    if (blockEvents  && (expectedAnswer === "" ||  expectedAnswer.includes(document.getElementById('input').value.toLowerCase()))){
         currentMaze.draw();
         blockEvents = false;
+        document.getElementById('input').value = "";
+        expectedAnswer = ""
         document.getElementById('input').style.display = 'none'
     }
 }

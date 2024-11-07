@@ -24,7 +24,7 @@ let startHardware = () => {
         showQuestion("IBM is targeting superconducting quantum computers\n"+
             "This is an implementation of a compete gate-based system\n"+
             "Find out what the alternative to \ngate-based systems is (1 word)",
-            ["annealing", "Annealing", "Annealer", "annealer", "Quantum Annealing"]);
+            ["annealing", "Annealing", "Annealer", "annealer", "quantum annealing"]);
         grabHardware(IBM);
         hasHardware = true;
     }
@@ -51,6 +51,18 @@ let startHardware = () => {
     }
     c.addFeature(QA);
 
+    c = randomCell(hardwareMaze);
+    let dw = new Feature("D-wave");
+    dw.visit = () => {
+        showMessage("D-wave systems are quantum annealing computers. \n"+
+            "They exploit some concepts of quantum physics, but are limited,\n"+
+            "so these are not general quantum computers. \n"+
+            "They can solve some quantum problems. \n"+
+            "However, at KBC, we focus on general gate-based systems.\n"+
+            "Find some gate-based computers!")
+        grabHardware(dw);
+    }
+    c.addFeature(dw);
 
     let office = new Feature("Office");
     hardwareMaze.grid[1][0].addFeature(office);
