@@ -3,6 +3,9 @@ let ctx = maze.getContext("2d")
 let currentMaze = undefined;
 let brick = document.getElementById("brick");
 
+let person = document.getElementById("person");
+
+
 class Maze{
 
     constructor(size, rows, cols, title) {
@@ -76,14 +79,18 @@ class Maze{
          this.createMaze();
     }
 
+
+
     async walk(){
+        const sleep = ms => new Promise(r => setTimeout(r, ms));
+        while(blockEvents) {await sleep(100)}
         for (let i = 0; i < this.persons.length; i++) {
             this.persons[i].walk();
         }
         if (currentMaze === this){
             this.draw();
         }
-        await new Promise(r => setTimeout(r, 2000));
+        await new Promise(r => setTimeout(r, 500));
         window.requestAnimationFrame( () => {this.walk();});
     }
 
@@ -131,11 +138,19 @@ class Cell{
     }
 
     hightlight(){
-    ctx.fillStyle = "purple";
-    ctx.fillRect(this.colnumber * this.parentgrid.size / this.parentgrid.cols + 1,
-        this.rownumber * this.parentgrid.size / this.parentgrid.rows + 1,
-         this.parentgrid.size / this.parentgrid.cols -2 ,
-        this.parentgrid.size / this.parentgrid.rows -2)
+
+
+        ctx.drawImage(person, this.colnumber * this.parentgrid.size / this.parentgrid.cols + 1,
+                                          this.rownumber * this.parentgrid.size / this.parentgrid.rows + 1,
+                                           this.parentgrid.size / this.parentgrid.cols -2 ,
+                                          this.parentgrid.size / this.parentgrid.rows -2);
+
+
+//        ctx.fillStyle = "purple";
+//        ctx.fillRect(this.colnumber * this.parentgrid.size / this.parentgrid.cols + 1,
+//            this.rownumber * this.parentgrid.size / this.parentgrid.rows + 1,
+//             this.parentgrid.size / this.parentgrid.cols -2 ,
+//            this.parentgrid.size / this.parentgrid.rows -2)
     }
 
 
@@ -217,9 +232,9 @@ class Cell{
 }
 
 function randomCell(m){
-    var cell =  m.grid[1 + Math.floor(Math.random()* (m.rows-2))][1 + Math.floor(Math.random()* (m.cols - 2))];
+    var cell =  m.grid[2 + Math.floor(Math.random()* (m.rows-3))][2 + Math.floor(Math.random()* (m.cols - 3))];
     while (cell.features.length > 0)
-        cell =  m.grid[1 + Math.floor(Math.random()* (m.rows-2))][1 + Math.floor(Math.random()* (m.cols - 2))];
+        cell =  m.grid[2 + Math.floor(Math.random()* (m.rows-3))][2 + Math.floor(Math.random()* (m.cols - 3))];
     return cell;
 }
 
@@ -295,6 +310,7 @@ class Feature{
 }
 
 class Person{
+
     constructor(cell, name){
         this.cell = cell;
         this.name = name;
@@ -352,6 +368,8 @@ class Person{
             if ((sponsors>0) && (experts >1)){
                 businessLogic = true;
             }
+            if (this.message)
+                showMessage(this.message);
 
         }
     }
@@ -417,15 +435,20 @@ window.addEventListener('keydown',this.check,false);
 window.addEventListener('click',this.unblock,false);
 
 function unblock(e) {
-    if (blockEvents){
+    if (blockEvents  && (expectedAnswer === "" ||  expectedAnswer.includes(document.getElementById('input').value))){
         currentMaze.draw();
         blockEvents = false;
+        document.getElementById('input').style.display = 'none'
     }
 }
 
 function check(e) {
-    if (!blockEvents){
+
     var code = e.keyCode;
+    if (code === 13) unblock(e)
+
+
+    if (!blockEvents){
     switch (code) {
         case 37: //Left key
             if (currentMaze.currentCell.colnumber > 0 && !currentMaze.currentCell.walls.leftwall) {
@@ -465,7 +488,7 @@ function showMessage(m){
     font = ctx.font;
     ctx.font = `20px Verdana`;
 
-    ctx.fillStyle = "green";
+    ctx.fillStyle = "#00aeef";
     ctx.fillRect(20,20,660 ,660);
 
     ctx.strokeStyle = "white";
@@ -482,7 +505,7 @@ function showMessage(m){
             	    theight += (ctx.measureText(lines[i]).actualBoundingBoxAscent)
             }
 
-    drawString(ctx, m, 350 - twidth/2, 350 - theight, "white", 0, "Verdana", 20);
+    drawString(ctx, m, 350 - twidth/2, 350 - theight, "white", 0, "ITC Lubalin Graph Std", 20);
 
     ctx.font = font;
 
@@ -498,6 +521,55 @@ function showMessage(m){
     ctx.stroke();
 
 }
+
+function showQuestion(m, answer){
+
+    blockEvents = true;
+
+    font = ctx.font;
+    ctx.font = `20px Verdana`;
+
+    ctx.fillStyle = "#00aeef";
+    ctx.fillRect(20,20,660 ,660);
+
+    ctx.strokeStyle = "white";
+    ctx.fillStyle = "white";
+    				var lines = m.split("\n");
+            var twidth = 0;
+            for (i = 0; i < lines.length; i++) {
+                if (twidth < ctx.measureText(lines[i]).width)
+            	    twidth = (ctx.measureText(lines[i]).width)
+            }
+
+            var theight = 0;
+            for (i = 0; i < lines.length; i++) {
+            	    theight += (ctx.measureText(lines[i]).actualBoundingBoxAscent)
+            }
+
+    drawString(ctx, m, 350 - twidth/2, 350 - theight, "white", 0, "ITC Lubalin Graph Std", 20);
+
+    document.getElementById('input').style.display='inline'
+
+    expectedAnswer = answer
+
+    ctx.font = font;
+
+
+    ctx.beginPath();
+    ctx.moveTo(655,25);
+    ctx.lineTo(675, 45);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(675,25);
+    ctx.lineTo(655, 45);
+    ctx.stroke();
+
+}
+
+let expectedAnswer = ""
+
+
 
 function drawString(ctx, text, posX, posY, textColor, rotation, font, fontSize) {
 				var lines = text.split("\n");

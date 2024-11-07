@@ -41,11 +41,14 @@ start = () => {
 
         else if (!algorithm){
             showMessage("Business is supporting your case, \nnow you need to construct the actual algorithm. \n"+
-            "Find the Algorithm 'QMCS' and add it to your project");
+            "Find the Algorithm 'QMCS' and add it to your project\n\n"
+            +"'QMCS' stands for Quantum Monte Carlo Simulations\n"
+            +"It gives a quandratic speedup to this class of resource \nconsuming algorithms");
         }
 
         else if (!ide){
-            showMessage("Your algorithm needs to be implemented for a quantum computer\nThis means you need to master a \nprogramming language for quantum computers.\n"+
+            showMessage("Quantum computers require a different tool.\n"
+            +"Your algorithm needs to be implemented for a quantum computer\nThis means you need to master a \nprogramming language for quantum computers.\n"+
             "At KBC we use Qiskit from IBM\n\nDo some research on this Python model");
         }
 
@@ -97,13 +100,10 @@ start = () => {
     c = randomWallCell(officeMaze)
     prd = new Feature("production");
     prd.requirements = [];
-    prd.requirements.push(new Requirement(()=>{return (status.project > 6);}, "You need a larger project"))
-    prd.requirements.push(new Requirement(()=>{return (status.time > 0);}, "You ran out of time, ask for more time at inno-board"))
-    prd.requirements.push(new Requirement(()=>{return (hasApproval("NAPP"));}, "For this project, you need NAPP-approval, find the board and request an approval!"))
     prd.visit = async () => {
         if (projectCompletion){
             // you win!!!
-            alert("you win!");
+            showMessage("you win!");
         }
     }
     c.addFeature(prd);

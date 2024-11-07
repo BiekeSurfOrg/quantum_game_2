@@ -14,6 +14,7 @@ let projectCompletion = false;
 let algos = [];
 
 let piece = document.getElementById("piece");
+let puzzle = document.getElementById("puzzle");
 
 let hasAlgo = (algo) => {
     for (let i = 0; i < algos.length; i++) {
@@ -243,6 +244,11 @@ startStatus =() => {
             this.drawTimeBucket();
 
 
+
+
+
+
+
         }
 
         drawProjectBucket(){
@@ -259,20 +265,37 @@ startStatus =() => {
             ctx.lineTo(170, 30);
             ctx.stroke();
 
-            if (businessLogic){
-                ctx.drawImage(piece, 30, 30, 70,70);
+            ctx.drawImage(puzzle, 30, 30, 140,140);
+
+
+
+            if (!businessLogic){
+                ctx.beginPath();
+                ctx.fillStyle = "gray";
+                ctx.fillRect(30 , 30, 70, 70);
+                ctx.stroke();
+//                ctx.drawImage(piece, 30, 30, 70,70);
             }
 
-            if (hasHardware){
-                ctx.drawImage(piece, 100, 30, 70,70);
+            if (!hasHardware){
+                ctx.beginPath();
+                ctx.fillStyle = "gray";
+                ctx.fillRect(100 , 30, 70, 70);
+                ctx.stroke();
             }
 
-            if (ide){
-                ctx.drawImage(piece, 30, 100, 70,70);
+            if (!ide){
+                ctx.beginPath();
+                ctx.fillStyle = "gray";
+                ctx.fillRect(30 , 100, 70, 70);
+                ctx.stroke();
             }
 
-            if (algorithm){
-                ctx.drawImage(piece, 100, 100, 70,70);
+            if (!algorithm){
+                ctx.beginPath();
+                ctx.fillStyle = "gray";
+                ctx.fillRect(100 , 100, 70, 70);
+                ctx.stroke();
             }
 
             ctx.strokeStyle = "white";
@@ -370,14 +393,17 @@ startStatus =() => {
 
         adjustTime(x){
             this.time = this.time + x;
-            if (this.time < 0) this.time = 0;
+            if (this.time < 0) {
+                this.time = -1;
+                showMessage("You lost this game, \nbetter luck next time!")
+            }
             if (this.time > 100) this.time = 100;
             this.draw();
         }
 
         async run(){
             this.adjustTime(-1);
-            await new Promise(r => setTimeout(r, 6000));
+            await new Promise(r => setTimeout(r, 9000));
             window.requestAnimationFrame( () => {this.run();});
 
         }
