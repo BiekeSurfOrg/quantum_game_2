@@ -59,6 +59,7 @@ start = () => {
         else {
             showMessage("You have your project, now run of to production!");
             projectCompletion = true;
+            window.location.href = "rebus.html";
         }
     }
     c.addFeature(desk);

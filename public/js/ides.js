@@ -18,7 +18,7 @@ let startTools = () => {
     toolsMaze.currentCell.visited = true;
     toolsMaze.createMaze();
 
-    c = randomCell(toolsMaze);
+    c = toolsMaze.grid[7][8];
     let Qiskit = new Feature("Qiskit");
     Qiskit.visit = () => {
             showMessage("Qiskit, or Quantum Information Science Kit\n"+
