@@ -1,0 +1,10 @@
+---
+applications:
+  - name: quantum-game-2
+    memory: 256M
+    disk_quota: 512M
+    buildpacks:
+      - staticfile_buildpack
+    path: public
+    env:
+      FORCE_HTTPS: true
