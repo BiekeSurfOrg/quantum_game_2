@@ -1,0 +1,8 @@
+---
+applications:
+  - name: quantum-game-2
+    path: public
+    buildpack: staticfile_buildpack
+    memory: 64M
+    disk_quota: 128M
+    instances: 1
